@@ -1,0 +1,53 @@
+username : "root"
+password : ""
+host : "localhost"
+database : "films"
+
+|***********create database********************|
+|++++++++++++++++++++++++++++++++++++++++++++++|
+
+create database films;
+
+|++++++++++++++++++++++++++++++++++++++++++++++|
+|                                              |
+|*************create tables********************|
+|                                              |
+|++++++++++++++++++++++++++++++++++++++++++++++|
+|********************movies********************|
+|++++++++++++++++++++++++++++++++++++++++++++++|
+
+create table movies 
+( id int not null primary key auto_increment,
+title varchar(50), 
+description text, 
+featured_image longblob not null, 
+movie_length int not null, 
+movie_release date not null);
+
+|++++++++++++++++++++++++++++++++++++++++++++++++|
+|********************category********************|
+|++++++++++++++++++++++++++++++++++++++++++++++++|
+
+create table category 
+( id int not null primary key auto_increment, 
+type varchar(20),
+value  varchar(20));
+
+|++++++++++++++++++++++++++++++++++++++++++++++++|
+|********************relationship****************|
+|++++++++++++++++++++++++++++++++++++++++++++++++|
+
+create table relationship 
+( id int not null primary key auto_increment, 
+taxonomy_id int, 
+movie_id int, 
+foreign key (taxonomy_id) 
+references category(id) 
+on delete cascade 
+on update cascade, 
+foreign key (movie_id) 
+references movies(id) 
+on delete cascade 
+on update cascade);
+
+|++++++++++++++++++++++++++++++++++++++++++++++++|
