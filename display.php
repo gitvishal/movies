@@ -25,7 +25,7 @@ elseif(strcmp($genre,'ALL'))
 $query.=" WHERE id IN (SELECT movie_id FROM relationship WHERE taxonomy_id IN ";
 $query.=" (SELECT id FROM category WHERE type='Genre' AND value='$genre')) ";
 }
-$qry_result1 = mysql_query($query) or die(mysql_error());
+$qry_result1 = $mysqli->query($query) or die("Error: (" . $mysqli->errno . ") " . $mysqli->error);
 
 if(strcmp($sorts,'Freshnes'))
 {
@@ -51,11 +51,11 @@ $query.=" LIMIT $rec_limit ";
 }
 
 $display_string = "<div>";
-$qry_result = mysql_query($query) or die(mysql_error());
+$qry_result = $mysqli->query($query) or die("Error: (" . $mysqli->errno . ") " . $mysqli->error);
 
 $display_string .= "</div>";
 $display_string .= "<div>";
-while($row = mysql_fetch_array($qry_result))
+while($row = $qry_result->fetch_assoc())
 {
 $display_string .="<div>";
 $display_string .="<h3>";
@@ -76,7 +76,7 @@ $display_string .="</div>";
 $display_string .= "</div>";
 if (isset($_GET{'cnt'}))
 {
-echo mysql_num_rows($qry_result1);
+echo $qry_result1->num_rows;
 }
 else
 {
