@@ -8,8 +8,8 @@ $display_string .= "<form name='filter_sort'>";
 $display_string .= "<p><label>language</label>";
 $display_string .= "<select id='language' onchange='sortAndFilterRequest();getControllersRequest();'>";
 $display_string .="<option value='ALL' selected='selected'>ALL</option>";
-$qry_result = mysql_query($language_query) or die(mysql_error());
-while($row = mysql_fetch_array($qry_result)){
+$qry_result = $mysqli->query($language_query) or die("Error: (" . $mysqli->errno . ") " . $mysqli->error);
+while($row = $qry_result->fetch_assoc()){
 $display_string .="<option value = '$row[value]'>";
 $display_string .="$row[value]</option>";
 }
@@ -19,8 +19,8 @@ $display_string .= "<p><label>genre</label>";
 $display_string .= "<select id = 'genre' onchange='sortAndFilterRequest();getControllersRequest();' >";
 $display_string .="<option value='ALL' selected='selected'>ALL</option>";
 
-$qry_result = mysql_query($genre_query) or die(mysql_error());
-while($row = mysql_fetch_array($qry_result)){
+$qry_result = $mysqli->query($genre_query) or die("Error: (" . $mysqli->errno . ") " . $mysqli->error);
+while($row = $qry_result->fetch_assoc()){
 $display_string .="<option value = '$row[value]'>";
 $display_string .="$row[value]</option>";
 }
